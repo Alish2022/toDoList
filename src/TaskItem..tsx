@@ -1,10 +1,10 @@
 import React from 'react';
-import {TasksType} from "./TodoList";
+import {TasksPropsType} from "./Tasks";
 
-const TaskItem = (props:TasksType) => {
+const TaskItem = (props: TasksPropsType) => {
     return (
         <div>
-            <li><input type="checkbox" checked={props.isDone}/> <span>{props.title}</span></li>
+
         </div>
     );
 };

@@ -3,10 +3,13 @@ import TodoListHeader from "./TodoListHeader";
 import AddTask from "./AddTask";
 import Tasks from "./Tasks";
 import StatusButtons from "./StatusButtons";
+import {isDoneType} from "./App"
 
 type TodoListPropsType={
     headerTitle: string
     tasks: Array<TasksType>
+    deleteTask:(id:number)=>void
+    setTasksFilter:(isDone:isDoneType)=>void
 }
 
 export type TasksType={
@@ -20,8 +23,8 @@ const TodoList = (props:TodoListPropsType) => {
         <div>
             <TodoListHeader headerTitle={props.headerTitle}/>
             <AddTask/>
-            <Tasks tasks={props.tasks} />
-            <StatusButtons />
+            <Tasks  deleteTask={props.deleteTask} tasks={props.tasks} />
+            <StatusButtons setTasksFilter={props.setTasksFilter} />
         </div>
     );
 };

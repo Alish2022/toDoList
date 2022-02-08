@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 
+export type isDoneType="Active"|"All"|"Complited"
+
 function App() {
 
-    const data={
+    const data1={
         headerTitle:"What to learn" ,
         tasks:[
             {id:0, title:"js", isDone:true},
@@ -12,7 +14,7 @@ function App() {
             {id:3,title:"react",isDone:true}
         ]
     }
-    const data1={
+    const data2={
         headerTitle:"hello" ,
         tasks:[
             {id:0, title:"jsx", isDone:false},
@@ -20,9 +22,28 @@ function App() {
             {id:3,title:"web",isDone:true}
         ]
     }
+
+    let [tasks,setTasks]=useState(data1.tasks)
+    let [Filter,setFilter]=useState<isDoneType>("All")
+
+    const setTasksFilter=(isDone:c)=>{
+        setFilter(isDone)
+    }
+    if (Filter==="Active"){
+        tasks=tasks.filter((t)=>t.isDone===false)
+    }
+    if (Filter==="Complited"){
+        tasks=tasks.filter((t)=>t.isDone===true)
+    }
+
+    const deleteTask=(id:number)=>{
+        let newData=tasks.filter((t)=>id!==t.id)
+        setTasks(newData)
+    }
+
     return (
         <div className="App">
-            <TodoList {...data}/>
+            <TodoList setTasksFilter={setTasksFilter} deleteTask={deleteTask} tasks={tasks} headerTitle={data1.headerTitle} />
 
         </div>
     );
