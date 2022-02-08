@@ -21,10 +21,10 @@ function App() {
         ]
     }
     return (
-        <>
+        <div className="App">
             <TodoList {...data}/>
-            <TodoList {...data1}/>
-        </>
+
+        </div>
     );
 }
 
