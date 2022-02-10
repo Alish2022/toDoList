@@ -8,9 +8,9 @@ type statusButtonType={
 const StatusButtons = (props:statusButtonType) => {
     return (
         <div>
-            <button onClick={()=>}{props.setTasksFilter("All")}>All</button>
-            <button onClick={()=>}{props.setTasksFilter("Complited")}>Active</button>
-            <button onClick={()=>}{props.setTasksFilter("All")}>Completed</button>
+            <button onClick={()=>{props.setTasksFilter("All")}}>All</button>
+            <button onClick={()=>{props.setTasksFilter("Active")}}>Active</button>
+            <button onClick={()=>{props.setTasksFilter("Completed")}}>Completed</button>
         </div>
     );
 };

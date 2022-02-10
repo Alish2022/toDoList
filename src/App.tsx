@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 
-export type isDoneType="Active"|"All"|"Complited"
+export type isDoneType="Active"|"All"|"Completed"
 
 function App() {
 
@@ -10,8 +10,8 @@ function App() {
         headerTitle:"What to learn" ,
         tasks:[
             {id:0, title:"js", isDone:true},
-            {id:2,title:"html",isDone:false},
-            {id:3,title:"react",isDone:true}
+            {id:1,title:"html",isDone:false},
+            {id:2,title:"react",isDone:true}
         ]
     }
     const data2={
@@ -26,14 +26,31 @@ function App() {
     let [tasks,setTasks]=useState(data1.tasks)
     let [Filter,setFilter]=useState<isDoneType>("All")
 
-    const setTasksFilter=(isDone:c)=>{
+    let filteredTasks=tasks
+
+    const addTask=(newTask:string)=>{
+
+        console.log(tasks)
+        //setTasks(tasks)
+    }
+
+    const toggleTask=(taskId:number)=>{
+        let newStatus=tasks.map((task)=>{
+            if (taskId===task.id){return {...task,isDone:!task.isDone}}
+            return task
+        })
+        console.log(newStatus)
+        setTasks(newStatus)
+    }
+
+    const setTasksFilter=(isDone:isDoneType)=>{
         setFilter(isDone)
     }
     if (Filter==="Active"){
-        tasks=tasks.filter((t)=>t.isDone===false)
+        filteredTasks=tasks.filter((t)=>t.isDone===false)
     }
-    if (Filter==="Complited"){
-        tasks=tasks.filter((t)=>t.isDone===true)
+    if (Filter==="Completed"){
+        filteredTasks=tasks.filter((t)=>t.isDone===true)
     }
 
     const deleteTask=(id:number)=>{
@@ -43,8 +60,12 @@ function App() {
 
     return (
         <div className="App">
-            <TodoList setTasksFilter={setTasksFilter} deleteTask={deleteTask} tasks={tasks} headerTitle={data1.headerTitle} />
-
+            <TodoList toggleTask={toggleTask}
+                      addTask={addTask}
+                      setTasksFilter={setTasksFilter}
+                      deleteTask={deleteTask}
+                      tasks={filteredTasks}
+                      headerTitle={data1.headerTitle} />
         </div>
     );
 }

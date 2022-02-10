@@ -10,6 +10,8 @@ type TodoListPropsType={
     tasks: Array<TasksType>
     deleteTask:(id:number)=>void
     setTasksFilter:(isDone:isDoneType)=>void
+    addTask:(newTask:string)=>void
+    toggleTask:(taskId:number)=>void
 }
 
 export type TasksType={
@@ -22,8 +24,8 @@ const TodoList = (props:TodoListPropsType) => {
     return (
         <div>
             <TodoListHeader headerTitle={props.headerTitle}/>
-            <AddTask/>
-            <Tasks  deleteTask={props.deleteTask} tasks={props.tasks} />
+            <AddTask addTask={props.addTask}/>
+            <Tasks toggleTask={props.toggleTask}  deleteTask={props.deleteTask} tasks={props.tasks} />
             <StatusButtons setTasksFilter={props.setTasksFilter} />
         </div>
     );

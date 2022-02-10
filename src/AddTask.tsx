@@ -1,10 +1,15 @@
 import React from 'react';
 
-const AddTask = () => {
+type addTaskType= {
+    addTask: (newTask: string) => void
+}
+
+
+const AddTask = (props:addTaskType) => {
     return (
         <div>
-            <input/>
-            <button>+</button>
+            <input type={"text"}/>
+            <button onClick={()=>{props.addTask("new")}}>+</button>
         </div>
     );
 };
