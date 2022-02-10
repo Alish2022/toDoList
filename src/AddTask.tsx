@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
 type addTaskType= {
     addTask: (newTask: string) => void
@@ -6,10 +6,20 @@ type addTaskType= {
 
 
 const AddTask = (props:addTaskType) => {
+    const [newTask,setNewTask]=useState<string>('')
+
+    const onChangeInputHandler=(event:ChangeEvent<HTMLInputElement>)=>{
+        setNewTask(event.currentTarget.value)
+    }
+    const onClickButtonHandler=()=>{
+        props.addTask(newTask)
+        setNewTask('')
+    }
+
     return (
         <div>
-            <input type={"text"}/>
-            <button onClick={()=>{props.addTask("new")}}>+</button>
+            <input onChange={onChangeInputHandler} value={newTask}  type={"text"}/>
+            <button onClick={onClickButtonHandler}>+</button>
         </div>
     );
 };

@@ -14,14 +14,6 @@ function App() {
             {id:2,title:"react",isDone:true}
         ]
     }
-    const data2={
-        headerTitle:"hello" ,
-        tasks:[
-            {id:0, title:"jsx", isDone:false},
-            {id:2,title:"tsx",isDone:false},
-            {id:3,title:"web",isDone:true}
-        ]
-    }
 
     let [tasks,setTasks]=useState(data1.tasks)
     let [Filter,setFilter]=useState<isDoneType>("All")
@@ -29,9 +21,16 @@ function App() {
     let filteredTasks=tasks
 
     const addTask=(newTask:string)=>{
-
-        console.log(tasks)
-        //setTasks(tasks)
+        let maxId=0
+        for(let i=0;i<tasks.length;i++){
+            if (tasks[i].id>maxId){
+                maxId=tasks[i].id
+            }
+        }
+        let newId=maxId+1
+        let task={id:newId, title:newTask, isDone:false}
+        const newTasks=[task,...tasks]
+        setTasks(newTasks)
     }
 
     const toggleTask=(taskId:number)=>{
@@ -39,7 +38,6 @@ function App() {
             if (taskId===task.id){return {...task,isDone:!task.isDone}}
             return task
         })
-        console.log(newStatus)
         setTasks(newStatus)
     }
 
