@@ -1,20 +1,27 @@
-import React from 'react';
-import {TasksPropsType} from "./Tasks";
+import React, {MouseEvent} from 'react';
 import {TasksType} from "./TodoList";
 
-type taskItemType=TasksType&{
-    deleteTask:(id: number) => void
-    toggleTask:(taskId:number)=>void
+type taskItemType = TasksType & {
+    deleteTask: (id: string) => void
+    toggleTask: (taskId: string, value: boolean) => void
 }
 
 const TaskItem = (props: taskItemType) => {
+
+    const onClickInputHandler = (e: MouseEvent<HTMLInputElement>) => {
+        props.toggleTask(props.id, e.currentTarget.checked)
+    }
+
+    const onClickButtonHandler = () => {
+        props.deleteTask(props.id)
+    }
+
     return (
-            <li>
-                <input onClick={()=>{props.toggleTask(props.id)}} type="checkbox" checked={props.isDone}/>
-                <span>{props.title}</span>
-                <button onClick={() => {props.deleteTask(props.id)}}>X
-                </button>
-            </li>
+        <li className={props.isDone ? "isDone" : ""}>
+            <input onClick={onClickInputHandler} type="checkbox" checked={props.isDone}/>
+            <span>{props.title}</span>
+            <button onClick={onClickButtonHandler}>X</button>
+        </li>
     );
 };
 

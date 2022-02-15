@@ -8,14 +8,15 @@ import {isDoneType} from "./App"
 type TodoListPropsType={
     headerTitle: string
     tasks: Array<TasksType>
-    deleteTask:(id:number)=>void
+    deleteTask:(id:string)=>void
     setTasksFilter:(isDone:isDoneType)=>void
     addTask:(newTask:string)=>void
-    toggleTask:(taskId:number)=>void
+    toggleTask:(taskId:string,value:boolean)=>void
+    filter:isDoneType
 }
 
 export type TasksType={
-    id:number
+    id:string
     title:string
     isDone:boolean
 }
@@ -26,7 +27,7 @@ const TodoList = (props:TodoListPropsType) => {
             <TodoListHeader headerTitle={props.headerTitle}/>
             <AddTask addTask={props.addTask}/>
             <Tasks toggleTask={props.toggleTask}  deleteTask={props.deleteTask} tasks={props.tasks} />
-            <StatusButtons setTasksFilter={props.setTasksFilter} />
+            <StatusButtons filter={props.filter} setTasksFilter={props.setTasksFilter} />
         </div>
     );
 };
