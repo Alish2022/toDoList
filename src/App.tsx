@@ -10,7 +10,7 @@ function App() {
     const data1={
         headerTitle:"What to learn" ,
         tasks:[
-            {id:v1(), title:"js", isDone:true},
+            {id:v1(), title:"js сss", isDone:true},
             {id:v1(),title:"html",isDone:false},
             {id:v1(),title:"react",isDone:true}
         ]
