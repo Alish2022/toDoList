@@ -1,21 +1,21 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
-type addTaskType = {
-    addTask: (newTask: string) => void
+type addItemType = {
+    addItem: (newItem: string) => void
 }
 
-const AddTask: React.FC<addTaskType> = (props) => {
+const AddItem: React.FC<addItemType> = (props) => {
 
-    const [newTask, setNewTask] = useState<string>('')
+    const [newItem, setNewItem] = useState<string>('')
     const [error, setError] = useState<string | null>(null)
 
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setNewTask(event.currentTarget.value)
+        setNewItem(event.currentTarget.value)
     }
     const onClickButtonHandler = () => {
-        if (newTask.trim() !== '') {
-            props.addTask(newTask.trim())
-            setNewTask('')
+        if (newItem.trim() !== '') {
+            props.addItem(newItem.trim())
+            setNewItem('')
             setError(null)
         } else {
             setError("Field is required")
@@ -30,11 +30,11 @@ const AddTask: React.FC<addTaskType> = (props) => {
 
     return (
         <div>
-            <input className={error?"errorInput":''} onKeyPress={onKeyPressHandler} onChange={onChangeInputHandler} value={newTask} type={"text"}/>
+            <input className={error?"errorInput":''} onKeyPress={onKeyPressHandler} onChange={onChangeInputHandler} value={newItem} type={"text"}/>
             <button onClick={onClickButtonHandler}>+</button>
             {error && <div className={"errorMessage"}>{error}</div>}
         </div>
     );
 };
 
-export default AddTask;
+export default AddItem;
