@@ -1,12 +1,14 @@
 import React, {MouseEvent} from 'react';
 import {TasksType} from "./TodoList";
+import EditableSpan from "./EditableSpan";
 
 type taskItemType = TasksType & {
     deleteTask: (id: string) => void
     toggleTask: (taskId: string, value: boolean) => void
+    editTask:(newTitle:string)=>void
 }
 
-const TaskItem = (props: taskItemType) => {
+const TaskItem:React.FC<taskItemType> = (props) => {
 
     const onClickInputHandler = (e: MouseEvent<HTMLInputElement>) => {
         props.toggleTask(props.id, e.currentTarget.checked)
@@ -19,7 +21,8 @@ const TaskItem = (props: taskItemType) => {
     return (
         <li className={props.isDone ? "isDone" : ""}>
             <input onClick={onClickInputHandler} type="checkbox" checked={props.isDone}/>
-            <span>{props.title}</span>
+            {/*<span>{props.title}</span>*/}
+            <EditableSpan edit={props.editTask} title={props.title}/>
             <button onClick={onClickButtonHandler}>X</button>
         </li>
     );

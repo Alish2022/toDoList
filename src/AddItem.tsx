@@ -1,10 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
-type addItemType = {
+type propsType = {
     addItem: (newItem: string) => void
 }
 
-const AddItem: React.FC<addItemType> = (props) => {
+const AddItem: React.FC<propsType> = (props) => {
 
     const [newItem, setNewItem] = useState<string>('')
     const [error, setError] = useState<string | null>(null)

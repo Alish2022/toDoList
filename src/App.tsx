@@ -51,17 +51,34 @@ function App() {
     let [tasks, setTasks] = useState<tasksForToDoListsType>(tasksForToDoLists)
     let [toDoLists, setToDoLists] = useState<Array<toDoListType>>(toDoListsData)
 
-    const addToDoList=(title:string)=>{
-        const newToDoList:toDoListType={id:v1(),title:title,filter:"All"}
-        const newTodoLists=[...toDoLists,newToDoList]
+    const addToDoList = (title: string) => {
+        const newToDoList: toDoListType = {id: v1(), title: title, filter: "All"}
+        const newTodoLists = [newToDoList, ...toDoLists]
+        const newTasksForToDoList = {...tasks, [newToDoList.id]: []}
         setToDoLists(newTodoLists)
+        setTasks(newTasksForToDoList)
     }
 
     const toDoListForRender = toDoLists.map(t => {
+
         const addTask = (newTask: string, toDoListId: string) => {
             let task = {id: v1(), title: newTask, isDone: false}
             const newTasks = {...tasks, [toDoListId]: [task, ...tasks[toDoListId]]}
             setTasks(newTasks)
+        }
+        const editTask = (toDoListId: string, taskId: string, newTitle: string) => {
+            const newArrayTasks = tasks[toDoListId].map(t => taskId === t.id ? {...t, title: newTitle} : t)
+            const newTasks = {...tasks, [toDoListId]: newArrayTasks}
+            setTasks(newTasks)
+        }
+        const editTitle = (toDoListId: string, newTitle: string) => {
+            const newToDoLists = toDoLists.map(t => t.id === toDoListId ? {...t, title: newTitle} : t)
+            setToDoLists(newToDoLists)
+        }
+        const deleteToDoList=(toDoListId:string)=>{
+            const newToDoLists=toDoLists.filter(t=>t.id!==toDoListId)
+            delete tasks[toDoListId]
+            setToDoLists(newToDoLists)
         }
         const toggleTask = (taskId: string, value: boolean, toDoListId: string) => {
             const newTasksArray = tasks[toDoListId].map(t => taskId === t.id ? {...t, isDone: value} : t)
@@ -92,14 +109,17 @@ function App() {
             addTask={addTask}
             setTasksFilter={setTasksFilter}
             deleteTask={deleteTask}
+            editTask={editTask}
             tasks={filteredTasks}
             headerTitle={t.title}
-            filter={t.filter}/>
+            filter={t.filter}
+            editTitle={editTitle}
+            deleteToDoList={deleteToDoList}/>
     })
 
     return (
         <div className="App">
-            <div><AddItem addItem={addToDoList}/></div>
+            <AddItem addItem={addToDoList}/>
             {toDoListForRender}
         </div>
     );
