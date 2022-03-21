@@ -9,11 +9,11 @@ const EditableSpan: React.FC<propsType> = (props) => {
 
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(props.title)
-    const [error, setError] = useState<boolean>(false)
+    const [error, setError] = useState<string>('')
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
-        console.log(title)
+        setError('')
     }
 
     const onClickHandler = () => {
@@ -22,7 +22,7 @@ const EditableSpan: React.FC<propsType> = (props) => {
 
     const onBlurHandler = () => {
         if (title.trim() === "") {
-            setError(true)
+            setError("Field is required")
         } else {
             setEditMode(false)
             props.edit(title)
@@ -38,9 +38,11 @@ const EditableSpan: React.FC<propsType> = (props) => {
     return (
         <>
             {editMode ?
-                <input value={title} onKeyPress={onKeyPressHandler} onBlur={onBlurHandler} onChange={onChangeHandler}
+                (<>
+                    <input value={title} onKeyPress={onKeyPressHandler} onBlur={onBlurHandler} onChange={onChangeHandler}
                        type={"text"} autoFocus/>
-                {error&& <div className={"errorMessage"}>{error}</div>{
+                {error && <div className={"errorMessage"}>{error}</div>}
+                </>)
                 : <span onClick={onClickHandler}>{props.title}</span>}
         </>
     );
