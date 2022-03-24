@@ -17,6 +17,7 @@ const TodoListHeader = (props: todoListHeaderPropsType) => {
         <h3>
             <EditableSpan title={props.headerTitle} edit={props.editTitle}/>
             <button onClick={onClickButtonHandler}>x</button>
+            <span>p</span>
         </h3>
         )
 };
